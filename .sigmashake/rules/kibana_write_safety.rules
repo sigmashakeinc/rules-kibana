@@ -6,7 +6,7 @@ rule kibana-block-unsafe-patterns {
   priority 90
   severity error
   DENY write
-  IF path GLOB "**/*" AND content CONTAINS "UNSAFE_kibana_PATTERN"
+  IF path GLOB "**/*" AND content CONTAINS "console.enabled: true"
   MESSAGE "Blocked an unsafe pattern in kibana. Use the recommended best practices for 2025/2026."
 }
 
@@ -14,7 +14,7 @@ rule kibana-force-updated-api {
   enabled true
   priority 80
   severity warning
-  ASK write
-  IF path GLOB "**/*" AND content CONTAINS "OLD_kibana_API"
+  LOG write
+  IF path GLOB "**/*" AND content CONTAINS "kibana-plugin"
   MESSAGE "You are using an outdated API for kibana. Please upgrade to the newer API."
 }
